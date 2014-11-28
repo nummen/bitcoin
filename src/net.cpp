@@ -7,6 +7,7 @@
 #include "config/bitcoin-config.h"
 #endif
 
+#include "compat.h"
 #include "net.h"
 
 #include "addrman.h"
@@ -33,10 +34,6 @@
 
 // Dump addresses to peers.dat every 15 minutes (900s)
 #define DUMP_ADDRESSES_INTERVAL 900
-
-#if !defined(HAVE_MSG_NOSIGNAL) && !defined(MSG_NOSIGNAL)
-#define MSG_NOSIGNAL 0
-#endif
 
 // Fix for ancient MinGW versions, that don't have defined these in ws2tcpip.h.
 // Todo: Can be removed when our pull-tester is upgraded to a modern MinGW version.

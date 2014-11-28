@@ -7,6 +7,7 @@
 #include "config/bitcoin-config.h"
 #endif
 
+#include "compat.h"
 #include "netbase.h"
 
 #include "hash.h"
@@ -29,10 +30,6 @@
 #include <boost/algorithm/string/case_conv.hpp> // for to_lower()
 #include <boost/algorithm/string/predicate.hpp> // for startswith() and endswith()
 #include <boost/thread.hpp>
-
-#if !defined(HAVE_MSG_NOSIGNAL) && !defined(MSG_NOSIGNAL)
-#define MSG_NOSIGNAL 0
-#endif
 
 using namespace std;
 
