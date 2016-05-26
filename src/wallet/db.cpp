@@ -355,6 +355,8 @@ bool CDBEnv::RemoveDb(const string& strFile)
 
 bool CDB::Rewrite(const string& strFile, const char* pszSkip)
 {
+    int ret;
+
     while (true) {
         {
             LOCK(bitdb.cs_db);
@@ -371,12 +373,12 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
                     CDB db(strFile.c_str(), "r");
                     Db* pdbCopy = new Db(bitdb.dbenv, 0);
 
-                    int ret = pdbCopy->open(NULL,               // Txn pointer
-                                            strFileRes.c_str(), // Filename
-                                            "main",             // Logical db name
-                                            DB_BTREE,           // Database type
-                                            DB_CREATE,          // Flags
-                                            0);
+                    ret = pdbCopy->open(NULL,               // Txn pointer
+                                        strFileRes.c_str(), // Filename
+                                        "main",             // Logical db name
+                                        DB_BTREE,           // Database type
+                                        DB_CREATE,          // Flags
+                                        0);
                     if (ret > 0) {
                         LogPrintf("CDB::Rewrite: Can't create database file %s\n", strFileRes);
                         fSuccess = false;
@@ -387,7 +389,7 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
                         while (fSuccess) {
                             CDataStream ssKey(SER_DISK, CLIENT_VERSION);
                             CDataStream ssValue(SER_DISK, CLIENT_VERSION);
-                            int ret = db.ReadAtCursor(pcursor, ssKey, ssValue, DB_NEXT);
+                            ret = db.ReadAtCursor(pcursor, ssKey, ssValue, DB_NEXT);
                             if (ret == DB_NOTFOUND) {
                                 pcursor->close();
                                 break;
@@ -406,8 +408,8 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
                             }
                             Dbt datKey(&ssKey[0], ssKey.size());
                             Dbt datValue(&ssValue[0], ssValue.size());
-                            int ret2 = pdbCopy->put(NULL, &datKey, &datValue, DB_NOOVERWRITE);
-                            if (ret2 > 0)
+                            ret = pdbCopy->put(NULL, &datKey, &datValue, DB_NOOVERWRITE);
+                            if (ret > 0)
                                 fSuccess = false;
                         }
                     if (fSuccess) {

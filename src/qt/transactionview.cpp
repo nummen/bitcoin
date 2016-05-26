@@ -184,9 +184,9 @@ TransactionView::TransactionView(const PlatformStyle *platformStyle, QWidget *pa
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
 }
 
-void TransactionView::setModel(WalletModel *model)
+void TransactionView::setModel(WalletModel *_model)
 {
-    this->model = model;
+    this->model = _model;
     if(model)
     {
         transactionProxyModel = new TransactionFilterProxy(this);

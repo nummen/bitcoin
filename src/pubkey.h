@@ -88,9 +88,9 @@ public:
     }
 
     //! Construct a public key from a byte vector.
-    CPubKey(const std::vector<unsigned char>& vch)
+    CPubKey(const std::vector<unsigned char>& _vch)
     {
-        Set(vch.begin(), vch.end());
+        Set(_vch.begin(), _vch.end());
     }
 
     //! Simple read-only vector-like interface to the pubkey data.
@@ -209,7 +209,7 @@ struct CExtPubKey {
 
     void Encode(unsigned char code[BIP32_EXTKEY_SIZE]) const;
     void Decode(const unsigned char code[BIP32_EXTKEY_SIZE]);
-    bool Derive(CExtPubKey& out, unsigned int nChild) const;
+    bool Derive(CExtPubKey& out, unsigned int _nChild) const;
 
     unsigned int GetSerializeSize(int nType, int nVersion) const
     {

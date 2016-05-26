@@ -618,8 +618,8 @@ bool ConnectSocketByName(CService &addr, SOCKET& hSocketRet, const char *pszDest
 
     SplitHostPort(std::string(pszDest), port, strDest);
 
-    proxyType nameProxy;
-    GetNameProxy(nameProxy);
+    proxyType _nameProxy;
+    GetNameProxy(_nameProxy);
 
     CService addrResolved;
     if (Lookup(strDest.c_str(), addrResolved, port, fNameLookup && !HaveNameProxy())) {
@@ -847,13 +847,13 @@ bool CNetAddr::IsValid() const
     if (IsIPv4())
     {
         // INADDR_NONE
-        uint32_t ipNone = INADDR_NONE;
-        if (memcmp(ip+12, &ipNone, 4) == 0)
+        uint32_t ipNone4 = INADDR_NONE;
+        if (memcmp(ip+12, &ipNone4, 4) == 0)
             return false;
 
         // 0
-        ipNone = 0;
-        if (memcmp(ip+12, &ipNone, 4) == 0)
+        ipNone4 = 0;
+        if (memcmp(ip+12, &ipNone4, 4) == 0)
             return false;
     }
 

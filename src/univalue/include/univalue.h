@@ -56,7 +56,7 @@ public:
     bool setNumStr(const std::string& val);
     bool setInt(uint64_t val);
     bool setInt(int64_t val);
-    bool setInt(int val) { return setInt((int64_t)val); }
+    bool setInt(int val_) { return setInt((int64_t)val_); }
     bool setFloat(double val);
     bool setStr(const std::string& val);
     bool setArray();
@@ -94,29 +94,29 @@ public:
     }
     bool push_backV(const std::vector<UniValue>& vec);
 
-    bool pushKV(const std::string& key, const UniValue& val);
-    bool pushKV(const std::string& key, const std::string& val) {
-        UniValue tmpVal(VSTR, val);
+    bool pushKV(const std::string& key, const UniValue& val_);
+    bool pushKV(const std::string& key, const std::string& val_) {
+        UniValue tmpVal(VSTR, val_);
         return pushKV(key, tmpVal);
     }
     bool pushKV(const std::string& key, const char *val_) {
-        std::string val(val_);
-        return pushKV(key, val);
+        std::string _val(val_);
+        return pushKV(key, _val);
     }
-    bool pushKV(const std::string& key, int64_t val) {
-        UniValue tmpVal(val);
+    bool pushKV(const std::string& key, int64_t _val) {
+        UniValue tmpVal(_val);
         return pushKV(key, tmpVal);
     }
-    bool pushKV(const std::string& key, uint64_t val) {
-        UniValue tmpVal(val);
+    bool pushKV(const std::string& key, uint64_t _val) {
+        UniValue tmpVal(_val);
         return pushKV(key, tmpVal);
     }
-    bool pushKV(const std::string& key, int val) {
-        UniValue tmpVal((int64_t)val);
+    bool pushKV(const std::string& key, int _val) {
+        UniValue tmpVal((int64_t)_val);
         return pushKV(key, tmpVal);
     }
-    bool pushKV(const std::string& key, double val) {
-        UniValue tmpVal(val);
+    bool pushKV(const std::string& key, double _val) {
+        UniValue tmpVal(_val);
         return pushKV(key, tmpVal);
     }
     bool pushKVs(const UniValue& obj);
