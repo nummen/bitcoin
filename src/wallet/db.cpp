@@ -604,17 +604,17 @@ bool CDB::PeriodicFlush(std::string strFile)
     {
         // Don't do this if any databases are in use
         int nRefCount = 0;
-        std::map<std::string, int>::iterator mi = bitdb.mapFileUseCount.begin();
-        while (mi != bitdb.mapFileUseCount.end())
+        std::map<std::string, int>::iterator mit = bitdb.mapFileUseCount.begin();
+        while (mit != bitdb.mapFileUseCount.end())
         {
-            nRefCount += (*mi).second;
-            mi++;
+            nRefCount += (*mit).second;
+            mit++;
         }
 
         if (nRefCount == 0)
         {
             boost::this_thread::interruption_point();
-            mi = bitdb.mapFileUseCount.find(strFile);
+            std::map<std::string, int>::iterator mi = bitdb.mapFileUseCount.find(strFile);
             if (mi != bitdb.mapFileUseCount.end())
             {
                 LogPrint("db", "Flushing %s\n", strFile);
